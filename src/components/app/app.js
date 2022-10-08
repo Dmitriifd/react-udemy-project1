@@ -88,10 +88,10 @@ class App extends Component {
 	}
 
 	render() {
-		const { data, term } = this.state
+		const { data, term, filter } = this.state
 		const employees = this.state.data.length
 		const increased = this.state.data.filter((item) => item.increase).length
-    const visibleData = this.searchEmp(data, term)
+		const visibleData = this.filterPost(this.searchEmp(data, term), filter)
 
 		return (
 			<div className='app'>
@@ -99,7 +99,7 @@ class App extends Component {
 
 				<div className='search-panel'>
 					<SearchPanel onUpdateSearch={this.onUpdateSearch} />
-					<AppFilter />
+					<AppFilter onFilterSelect={this.onFilterSelect} filter={filter} />
 				</div>
 
 				<EmployeesList data={visibleData} onDelete={this.deleteItem} onToggleProp={this.onToggleProp} />
