@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import AppInfo from '../app-info/app-info'
 import SearchPanel from '../search-panel/search-panel'
@@ -20,6 +21,21 @@ class App extends Component {
 		}
 	}
 
+	addItem = (name, salary) => {
+		const newItem = {
+			name,
+			salary,
+			increase: false,
+			id: uuidv4(),
+		}
+		this.setState(({ data }) => {
+			const newArr = [...data, newItem]
+			return {
+				data: newArr,
+			}
+		})
+	}
+
 	deleteItem = (id) => {
 		this.setState(({ data }) => {
 			return {
@@ -39,7 +55,7 @@ class App extends Component {
 				</div>
 
 				<EmployeesList data={this.state.data} onDelete={this.deleteItem} />
-				<EmployeesAddForm />
+				<EmployeesAddForm onAdd={this.addItem} />
 			</div>
 		)
 	}
