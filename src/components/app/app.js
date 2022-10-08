@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import styled from 'styled-components'
 
 import AppInfo from '../app-info/app-info'
 import SearchPanel from '../search-panel/search-panel'
@@ -87,14 +88,28 @@ class App extends Component {
 		this.setState({ filter })
 	}
 
+
 	render() {
+    const Wrapper = styled.div`
+      width: 1000px;
+      margin: 0 auto;
+    `
+    const ModWrapper = styled(Wrapper)`
+			width: 1200px;
+			background-color: ${(props) => (props.active ? 'gray' : 'black')};
+			a {
+				display: block;
+				padding: 10px;
+			}
+		`
+
 		const { data, term, filter } = this.state
 		const employees = this.state.data.length
 		const increased = this.state.data.filter((item) => item.increase).length
 		const visibleData = this.filterPost(this.searchEmp(data, term), filter)
 
 		return (
-			<div className='app'>
+			<ModWrapper as="section" active>
 				<AppInfo employees={employees} increased={increased} />
 
 				<div className='search-panel'>
@@ -104,7 +119,7 @@ class App extends Component {
 
 				<EmployeesList data={visibleData} onDelete={this.deleteItem} onToggleProp={this.onToggleProp} />
 				<EmployeesAddForm onAdd={this.addItem} />
-			</div>
+			</ModWrapper>
 		)
 	}
 }
