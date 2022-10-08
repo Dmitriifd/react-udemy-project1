@@ -8,7 +8,6 @@ class EmployeesAddForm extends Component {
 			name: '',
 			salary: '',
 		}
-		const { addEmployer } = this.props
 	}
 
 	onValueChange = (e) => {
